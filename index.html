@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE BLACK DREAD — The Sea Calls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=IM+Fell+English+SC&family=IM+Fell+DW+Pica:ital@0;1&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Hidden SVG Filters for Exaggerated Hand-Sketched / Woodcut Rough Edges -->
+    <svg class="svg-defs" aria-hidden="true" width="0" height="0">
+      <defs>
+        <!-- Subtle woodcut ink bleed for big typography -->
+        <filter id="woodcut-text" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.065 0.08"
+            numOctaves="3"
+            seed="11"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="1.8"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+
+        <!-- Exaggerated hand-drawn charcoal border jitter for buttons and cards -->
+        <filter id="sketch-border" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.045"
+            numOctaves="4"
+            seed="7"
+            result="noise"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="2.6"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section class="hero-section" id="home">
+      <!-- Real-Time WebGL 3D & GLSL Shader Canvas -->
+      <div id="hero-canvas-container" aria-hidden="true">
+        <canvas id="hero-webgl-canvas"></canvas>
+        <!-- Foreground 2D Ink Sketch Overlay Canvas for Extra Hand-Drawn Hatching & Splatter -->
+        <canvas id="hero-ink-overlay"></canvas>
+      </div>
+
+      <!-- Vignette & Charcoal Etching Grain Overlay -->
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <!-- Top Navigation Bar (Matches Reference Image Layout & Proportions) -->
+      <header class="site-header">
+        <a href="#home" class="brand-logo" aria-label="The Black Dread">
+          <img
+            src="/assets/logo.png"
+            alt="The Black Dread Emblem"
+            class="brand-logo-img"
+          />
+        </a>
+
+        <nav class="site-nav" aria-label="Primary Navigation">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#lore" class="nav-link">Lore</a>
+          <a href="#lore" class="nav-link" data-filter="crew">Crew</a>
+          <a href="#lore" class="nav-link" data-filter="journey">Journey</a>
+          <button type="button" class="btn-join-crew" id="join-crew-btn">
+            <span>Join Crew</span>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Hero Left-Side Copy & Actions -->
+      <div class="hero-content-wrapper">
+        <div class="hero-copy">
+          <h1 class="hero-title">THE SEA CALLS</h1>
+          <p class="hero-subtitle">
+            Navigate the dark, uncharted waters of the<br />
+            forgotten age.
+          </p>
+          <div class="hero-actions">
+            <a href="#lore" class="btn-board-ship" id="board-ship-btn">
+              <svg
+                class="btn-sketch-frame"
+                viewBox="0 0 186 52"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  class="frame-outer"
+                  d="M4,4 L181,3 L183,48 L3,49 Z"
+                />
+                <path
+                  class="frame-inner"
+                  d="M7,7 L178,6.5 L179.5,45 L6.5,45.5 Z"
+                />
+              </svg>
+              <span>Board the Ship</span>
+            </a>
+            <a href="#lore" class="link-learn-more">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE LORE (3 Hand-Sketched Chronicle Cards / Ship's Log Entries) -->
+    <section class="lore-section" id="lore">
+      <!-- Cross-hatched ink transition divider -->
+      <div class="lore-top-divider" aria-hidden="true">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+          <path
+            d="M0,90 L0,42 Q180,12 360,48 T720,38 T1080,52 T1440,34 L1440,90 Z"
+            fill="#07090c"
+          />
+          <path
+            d="M0,44 Q180,14 360,50 T720,40 T1080,54 T1440,36"
+            fill="none"
+            stroke="rgba(212, 205, 190, 0.35)"
+            stroke-width="1.6"
+            stroke-dasharray="14 6 4 6"
+          />
+          <path
+            d="M0,52 Q220,24 410,58 T810,46 T1190,60 T1440,44"
+            fill="none"
+            stroke="rgba(212, 205, 190, 0.16)"
+            stroke-width="1"
+          />
+        </svg>
+      </div>
+
+      <div class="lore-container">
+        <div class="lore-header">
+          <span class="lore-eyebrow">RECOVERED SHIP'S LOG — ANNO DOMINI 1689</span>
+          <h2 class="lore-title">CHRONICLES OF THE DREAD</h2>
+          <p class="lore-subtitle">
+            Three salt-stained pages torn from Captain Malakor Vane’s charcoal ledger,
+            detailing the night the sun drowned beneath the iron swells.
+          </p>
+        </div>
+
+        <div class="lore-grid">
+          <!-- Chronicle Card I -->
+          <article class="lore-card" data-entry="1">
+            <svg
+              class="card-sketch-border"
+              viewBox="0 0 400 520"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                class="card-stroke-outer"
+                d="M5,6 L394,4 L396,514 L4,515 Z"
+              />
+              <path
+                class="card-stroke-inner"
+                d="M11,12 L388,10 L390,508 L10,509 Z"
+              />
+              <!-- Corner ink ticks -->
+              <path
+                class="card-corner-ticks"
+                d="M2,18 L24,2 M376,2 L398,18 M2,502 L24,518 M376,518 L398,502"
+              />
+            </svg>
+
+            <div class="lore-card-illustration">
+              <!-- Hand-sketched SVG Woodcut Illustration: The Cursed Astrolabe & Eclipse -->
+              <svg viewBox="0 0 320 170" class="etching-svg" aria-hidden="true">
+                <defs>
+                  <pattern
+                    id="hatch-diag-1"
+                    width="6"
+                    height="6"
+                    patternTransform="rotate(35 0 0)"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="6"
+                      stroke="rgba(214,207,194,0.22)"
+                      stroke-width="1"
+                    />
+                  </pattern>
+                  <pattern
+                    id="hatch-cross-1"
+                    width="5"
+                    height="5"
+                    patternTransform="rotate(-40 0 0)"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="5"
+                      stroke="rgba(214,207,194,0.16)"
+                      stroke-width="0.9"
+                    />
+                  </pattern>
+                </defs>
+                <!-- Etched background sky lines -->
+                <rect x="8" y="8" width="304" height="154" fill="url(#hatch-diag-1)" />
+                <circle cx="160" cy="85" r="64" fill="#090c10" stroke="#c8c0b0" stroke-width="1.5" stroke-dasharray="18 3 6 3" />
+                <circle cx="160" cy="85" r="56" fill="url(#hatch-cross-1)" stroke="rgba(200,192,176,0.45)" stroke-width="1" />
+                <!-- Compass Rose / Broken Astrolabe needles -->
+                <polygon points="160,14 168,75 160,68 152,75" fill="#d5cec0" />
+                <polygon points="160,156 168,95 160,102 152,95" fill="rgba(213,206,192,0.4)" stroke="#d5cec0" stroke-width="1" />
+                <polygon points="89,85 150,77 143,85 150,93" fill="rgba(213,206,192,0.4)" stroke="#d5cec0" stroke-width="1" />
+                <polygon points="231,85 170,77 177,85 170,93" fill="#d5cec0" />
+                <!-- Drowned Eclipse Core -->
+                <circle cx="160" cy="85" r="22" fill="#06080b" stroke="#d97736" stroke-width="1.5" />
+                <circle cx="160" cy="85" r="16" fill="#050608" stroke="#c8c0b0" stroke-width="1" stroke-dasharray="4 3" />
+                <!-- Radiating sketch lines -->
+                <g stroke="rgba(213,206,192,0.38)" stroke-width="1">
+                  <line x1="25" y1="30" x2="88" y2="55" />
+                  <line x1="20" y1="42" x2="82" y2="63" />
+                  <line x1="295" y1="30" x2="232" y2="55" />
+                  <line x1="300" y1="42" x2="238" y2="63" />
+                  <line x1="30" y1="140" x2="90" y2="112" />
+                  <line x1="290" y1="140" x2="230" y2="112" />
+                </g>
+              </svg>
+              <span class="log-folio">FOLIO I · 14 NOV</span>
+            </div>
+
+            <div class="lore-card-body">
+              <div class="lore-card-meta">LAT 00° 00' N — THE DEAD CALM</div>
+              <h3 class="lore-card-title">I. The Sky That Bled Soot</h3>
+              <p class="lore-card-text">
+                On the nineteenth night beyond the Cartographer’s Edge, the stars did
+                not set—they were scraped from the firmament like chalk from slate. A
+                charcoal tempest coiled above our mainmast, raining warm ash upon a sea
+                turned thick as printer’s ink.
+              </p>
+              <blockquote class="lore-card-quote">
+                “The compass needle spun thrice widdershins, then cracked the glass to
+                point straight down into the keel.”
+              </blockquote>
+            </div>
+          </article>
+
+          <!-- Chronicle Card II -->
+          <article class="lore-card" data-entry="2">
+            <svg
+              class="card-sketch-border"
+              viewBox="0 0 400 520"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                class="card-stroke-outer"
+                d="M4,5 L395,6 L394,515 L6,513 Z"
+              />
+              <path
+                class="card-stroke-inner"
+                d="M10,11 L389,12 L388,509 L12,507 Z"
+              />
+              <path
+                class="card-corner-ticks"
+                d="M2,18 L24,2 M376,2 L398,18 M2,502 L24,518 M376,518 L398,502"
+              />
+            </svg>
+
+            <div class="lore-card-illustration">
+              <!-- Hand-sketched SVG Woodcut Illustration: The Tattered Hull & Reef -->
+              <svg viewBox="0 0 320 170" class="etching-svg" aria-hidden="true">
+                <rect x="8" y="8" width="304" height="154" fill="url(#hatch-cross-1)" />
+                <!-- Storm cloud cross-hatched arcs -->
+                <path
+                  d="M12,65 Q50,25 95,48 Q135,15 185,42 Q235,18 275,48 Q298,40 308,65"
+                  fill="none"
+                  stroke="rgba(213,206,192,0.5)"
+                  stroke-width="1.4"
+                />
+                <!-- Jagged sea rocks & ship silhouette -->
+                <polygon points="32,142 58,78 82,142" fill="#07090c" stroke="#c8c0b0" stroke-width="1.3" />
+                <polygon points="240,142 262,86 286,142" fill="#07090c" stroke="#c8c0b0" stroke-width="1.3" />
+                <!-- Center spectral galleon etching -->
+                <path
+                  d="M118,124 L132,140 L188,140 L204,120 L160,125 Z"
+                  fill="#0b0e13"
+                  stroke="#d5cec0"
+                  stroke-width="1.6"
+                />
+                <line x1="142" y1="130" x2="142" y2="48" stroke="#d5cec0" stroke-width="1.6" />
+                <line x1="162" y1="130" x2="162" y2="32" stroke="#d5cec0" stroke-width="1.8" />
+                <line x1="182" y1="130" x2="182" y2="56" stroke="#d5cec0" stroke-width="1.5" />
+                <!-- Billowing etched sails -->
+                <path d="M142,54 Q124,78 142,106 L156,102 Q144,78 156,56 Z" fill="rgba(213,206,192,0.18)" stroke="#d5cec0" stroke-width="1.2" />
+                <path d="M162,40 Q140,72 162,108 L178,104 Q162,72 178,42 Z" fill="rgba(213,206,192,0.22)" stroke="#d5cec0" stroke-width="1.3" />
+                <!-- Ember spark -->
+                <circle cx="168" cy="131" r="2.8" fill="#d97736" />
+                <circle cx="152" cy="132" r="2" fill="#d97736" />
+                <!-- Sketchy white-ink waves at base -->
+                <path
+                  d="M12,142 Q55,128 98,142 T184,142 T268,142 T308,140"
+                  fill="none"
+                  stroke="#e2dcd0"
+                  stroke-width="1.8"
+                />
+                <path
+                  d="M18,151 Q70,139 118,151 T212,151 T304,149"
+                  fill="none"
+                  stroke="rgba(226,220,208,0.55)"
+                  stroke-width="1.1"
+                />
+              </svg>
+              <span class="log-folio">FOLIO II · 29 NOV</span>
+            </div>
+
+            <div class="lore-card-body">
+              <div class="lore-card-meta">DEPTH UNKNOWN — MARROW REACH</div>
+              <h3 class="lore-card-title">II. The Pact of Black Oak</h3>
+              <p class="lore-card-text">
+                When the rations turned to brine and our canvas shredded into burial
+                shrouds, the hull itself began to breathe. Barnacles of tarnished silver
+                stitched the shattered planks together, fed by the furnace ember burning
+                beneath the quarterdeck.
+              </p>
+              <blockquote class="lore-card-quote">
+                “She takes no water now, though her ribs are open to the sea. It is the
+                ocean that fears to enter her.”
+              </blockquote>
+            </div>
+          </article>
+
+          <!-- Chronicle Card III -->
+          <article class="lore-card" data-entry="3">
+            <svg
+              class="card-sketch-border"
+              viewBox="0 0 400 520"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                class="card-stroke-outer"
+                d="M6,4 L395,5 L393,515 L4,514 Z"
+              />
+              <path
+                class="card-stroke-inner"
+                d="M12,10 L389,11 L387,509 L10,508 Z"
+              />
+              <path
+                class="card-corner-ticks"
+                d="M2,18 L24,2 M376,2 L398,18 M2,502 L24,518 M376,518 L398,502"
+              />
+            </svg>
+
+            <div class="lore-card-illustration">
+              <!-- Hand-sketched SVG Woodcut Illustration: The Stern Lantern & Helm -->
+              <svg viewBox="0 0 320 170" class="etching-svg" aria-hidden="true">
+                <rect x="8" y="8" width="304" height="154" fill="url(#hatch-diag-1)" />
+                <!-- Ship's wheel / helm spokes -->
+                <circle cx="160" cy="88" r="48" fill="#07090c" stroke="#c8c0b0" stroke-width="2" />
+                <circle cx="160" cy="88" r="38" fill="none" stroke="rgba(200,192,176,0.5)" stroke-width="1" stroke-dasharray="6 4" />
+                <g stroke="#c8c0b0" stroke-width="1.6">
+                  <line x1="160" y1="24" x2="160" y2="152" />
+                  <line x1="96" y1="88" x2="224" y2="88" />
+                  <line x1="115" y1="43" x2="205" y2="133" />
+                  <line x1="205" y1="43" x2="115" y2="133" />
+                </g>
+                <!-- Hanging Iron Lantern in Center -->
+                <polygon
+                  points="148,66 172,66 177,106 143,106"
+                  fill="#0b0e13"
+                  stroke="#e0d8c8"
+                  stroke-width="1.6"
+                />
+                <polygon points="152,56 168,56 172,66 148,66" fill="#181f26" stroke="#e0d8c8" stroke-width="1.3" />
+                <!-- Warm glowing flame core -->
+                <path
+                  d="M160,74 C166,82 167,93 160,98 C153,93 154,82 160,74 Z"
+                  fill="#d97736"
+                />
+                <circle cx="160" cy="88" r="4" fill="#ffd9a0" />
+              </svg>
+              <span class="log-folio">FOLIO III · NO DAWN</span>
+            </div>
+
+            <div class="lore-card-body">
+              <div class="lore-card-meta">BEARING: BEYOND THE HORIZON</div>
+              <h3 class="lore-card-title">III. The Uncharted Summons</h3>
+              <p class="lore-card-text">
+                Whenever fog gathers thick along coastal piers and the tide pulls outward
+                against the wind, the Black Dread drops anchor just beyond the harbour
+                bell. Her stern lantern burns for those who hear the abyssal tide.
+              </p>
+              <blockquote class="lore-card-quote">
+                “Sign no articles in ink. Step across the gangplank, and the sea
+                remembers your name forever.”
+              </blockquote>
+            </div>
+          </article>
+        </div>
+
+        <!-- Subtle etched footer signature inside the Lore section (no extra section) -->
+        <div class="lore-footer-mark">
+          <span class="mark-line"></span>
+          <span class="mark-text">THE BLACK DREAD · REGISTERED IN THE FORGOTTEN AGE</span>
+          <span class="mark-line"></span>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
